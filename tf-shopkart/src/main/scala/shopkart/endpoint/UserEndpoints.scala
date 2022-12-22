@@ -1,9 +1,7 @@
 package shopkart.endpoint
 
-import cats._
 import cats.effect._
 import cats.implicits._
-import io.circe.generic.auto._
 import org.http4s.HttpRoutes
 import org.http4s._
 import org.http4s.circe._
@@ -17,14 +15,17 @@ class UserEndpoints[F[_]: UserRepository: Concurrent] private extends Http4sDsl[
   implicit def userEncoder[F[_]]: EntityEncoder[F, User]             = jsonEncoderOf[F, User]
   implicit def userDecoder[F[_]: Concurrent]: EntityDecoder[F, User] = jsonOf[F, User]
 
-  def endpoints: HttpRoutes[F] =
-    HttpRoutes.of[F] { case req @ POST -> Root / "userreg" =>
+  def endpoints: HttpRoutes[F] = HttpRoutes.of[F] {
+
+    case GET -> Root / "users"        => ???
+    
+    case req @ POST -> Root / "users" =>
       for {
         requestUser <- req.as[User]
         savedUser   <- UserService.registerUser(requestUser)
         res         <- Ok("done")
       } yield res
-    }
+  }
 }
 
 object UserEndpoints {

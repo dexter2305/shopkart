@@ -12,16 +12,19 @@ lazy val commonDependencies = Seq(
   http4s_dsl,
   http4s_circe,
   http4s_blaze_server,
-  circe_generic
+  http4s_ember_server,
+  circe_generic,
+  logback_classic,
 )
 
 lazy val root = (project in file("."))
   .settings(
     name := "shopkart"
-  ).aggregate(`shopkart-tf`)
+  )
+  .aggregate(`tf-shopkart`)
 
-lazy val `shopkart-tf` = (project in file("tf-shopkart")).settings(
-  name                      := "shopkart-tf",
+lazy val `tf-shopkart` = (project in file("tf-shopkart")).settings(
+  name                      := "tagless-final-shopkart",
   Compile / run / mainClass := Some("Main"),
   libraryDependencies ++= commonDependencies
 )
