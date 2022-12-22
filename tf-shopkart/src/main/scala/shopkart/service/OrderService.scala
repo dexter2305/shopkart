@@ -17,7 +17,6 @@ class OrderService[F[_]: OrderRepository] private {
 
 object OrderService {
 
-
   def apply[F[_]: OrderRepository] = new OrderService[F]
 
 }

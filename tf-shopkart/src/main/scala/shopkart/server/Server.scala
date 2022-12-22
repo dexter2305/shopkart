@@ -9,12 +9,11 @@ import com.comcast.ip4s._
 object Server {
 
   def serve[F[_]: Async](httpApp: HttpApp[F]): F[ExitCode] =
-  {
     BlazeServerBuilder[F]
       .bindHttp(port = 9090, host = "0.0.0.0")
       .withHttpApp(httpApp)
       .serve
-      .compile      
+      .compile
       .drain
       .as(ExitCode.Success)
 
@@ -25,7 +24,6 @@ object Server {
     //   .withHttpApp(httpApp)
     //   .build
     //   .
-         
+
     //   ???
-  }
 }

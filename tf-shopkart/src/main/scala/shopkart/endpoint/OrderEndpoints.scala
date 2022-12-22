@@ -1,22 +1,17 @@
 package shopkart.endpoint
 
-import org.http4s.dsl.Http4sDsl
-import org.http4s.HttpRoutes
+import cats._
+import cats.effect._
+import cats.implicits._
+import cats.instances.order
+import org.http4s.EntityDecoder
+import org.http4s._
+import org.http4s.dsl._
 import shopkart._
 import shopkart.algebra._
+import shopkart.codecs._
 import shopkart.service._
-import cats.effect._
-import cats._
-import cats.implicits._
-import org.http4s.circe._
-
-import org.http4s.EntityDecoder
-import cats.instances.order
-
 class OrderEndpoints[F[_]: OrderRepository: Concurrent] private extends Http4sDsl[F] {
-
-  implicit val encoder            = jsonEncoderOf[F, domain.Order]
-  implicit val orderEntityDecoder = jsonOf[F, domain.Order]
 
   def endpoints: HttpRoutes[F] = HttpRoutes.of[F] {
 
