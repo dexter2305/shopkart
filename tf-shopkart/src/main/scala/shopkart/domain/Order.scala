@@ -11,4 +11,5 @@ object Order {
   //def orderDecoderControlled: Decoder[Order] = Decoder.forProduct2[Order, Int, Int]("id", "userid")((orderid, userid) => Order(orderid, userid))
   implicit def orderDecoder: Decoder[Order] = deriveDecoder[Order]
   implicit def orderEncoder: Encoder[Order] = deriveEncoder[Order]
+  
 }

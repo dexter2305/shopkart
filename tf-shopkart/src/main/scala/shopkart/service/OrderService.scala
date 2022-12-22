@@ -8,7 +8,7 @@ class OrderService[F[_]: OrderRepository] private {
   def placeOrder(order: Order): F[Order] =
     implicitly[OrderRepository[F]].save(order)
 
-  def findOrdersById(userid: Int): F[Seq[Order]] =
+  def findOrdersByUser(userid: Int): F[Seq[Order]] =
     implicitly[OrderRepository[F]].findByUserId(userid)
 
   def findOrderById(orderId: Int): F[Option[Order]] =
