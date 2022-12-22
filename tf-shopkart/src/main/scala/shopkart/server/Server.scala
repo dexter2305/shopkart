@@ -4,7 +4,6 @@ import org.http4s.HttpApp
 import org.http4s.blaze.server.BlazeServerBuilder
 import cats.effect._
 import cats.implicits._
-import org.http4s.ember.server.EmberServerBuilder
 import com.comcast.ip4s._
 object Server {
 
@@ -17,13 +16,4 @@ object Server {
       .drain
       .as(ExitCode.Success)
 
-    // EmberServerBuilder
-    //   .default[F]
-    //   .withHost(ipv4"0.0.0.0")
-    //   .withPort(port"9090")
-    //   .withHttpApp(httpApp)
-    //   .build
-    //   .
-
-    //   ???
 }
