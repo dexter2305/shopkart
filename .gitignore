@@ -1,0 +1,8 @@
+.bsp/
+.bloop/
+target/
+.metals/
+.vscode
+project/*
+!project/Dependencies.scala
+!project/plugins.sbt
