@@ -30,7 +30,7 @@ class OrderEndpoints[F[_]: OrderRepository: Concurrent] private extends Http4sDs
       for {
         order       <- req.as[domain.Order]
         placedOrder <- OrderService.apply.placeOrder(order)
-        response    <- Ok()
+        response    <- Ok(placedOrder)
       } yield response
   }
 
