@@ -20,10 +20,16 @@ lazy val root = (project in file("."))
   .settings(
     name := "shopkart"
   )
-  .aggregate(`tf-shopkart`)
+  .aggregate(`a-tf-shopkart`, `b-rm-shopkart`)
 
-lazy val `tf-shopkart` = (project in file("tf-shopkart")).settings(
+lazy val `a-tf-shopkart` = (project in file("a-tf-shopkart")).settings(
   name                      := "tagless-final-shopkart",
+  Compile / run / mainClass := Some("Main"),
+  libraryDependencies ++= commonDependencies 
+)
+
+lazy val `b-rm-shopkart` = (project in file("b-rm-shopkart")).settings(
+  name                      := "reader-monad-shopkart",
   Compile / run / mainClass := Some("Main"),
   libraryDependencies ++= commonDependencies 
 )

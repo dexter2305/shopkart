@@ -8,6 +8,6 @@ import shopkart.algebra.OrderRepository
 import cats.effect.ExitCode
 object Program {
 
-  def dsl[F[_]: UserRepository: OrderRepository: Concurrent: Async]: F[ExitCode] = Server.serve[F](HttpApp.make[F])
+  def dsl[F[_]: UserRepository: OrderRepository: Concurrent: Async]: F[Unit] = Server.serve[F](HttpApp.make[F])
 
 }
