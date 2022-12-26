@@ -21,3 +21,9 @@ object Dependencies {
   lazy val circe_literal       = "io.circe"      %% "circe-literal"        % version.circe
   lazy val logback_classic     = "ch.qos.logback" % "logback-classic"      % version.logback_classic
 }
+
+object options {
+  val scalacOptions = Seq (
+    "-deprecation"
+  )
+}
