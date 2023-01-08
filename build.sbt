@@ -1,4 +1,5 @@
 import Dependencies._
+// import com.permutive.sbtliquibase.SbtLiquibase
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 ThisBuild / scalaVersion      := "2.13.9"
@@ -13,7 +14,8 @@ lazy val commonDependencies = Seq(
   http4s_circe,
   http4s_blaze_server,
   circe_generic,
-  logback_classic
+  logback_classic,
+  sqlite
 )
 
 lazy val root = (project in file("."))
@@ -22,14 +24,22 @@ lazy val root = (project in file("."))
   )
   .aggregate(`a-tf-shopkart`, `b-rm-shopkart`)
 
-lazy val `a-tf-shopkart` = (project in file("a-tf-shopkart")).settings(
-  name                      := "tagless-final-shopkart",
-  Compile / run / mainClass := Some("Main"),
-  libraryDependencies ++= commonDependencies
-)
+lazy val `a-tf-shopkart` = (project in file("a-tf-shopkart"))
+  .settings(
+    name                      := "tagless-final-shopkart",
+    Compile / run / mainClass := Some("Main"),
+    libraryDependencies ++= commonDependencies,
+    liquibaseChangelog        := java.nio.file.Path.of("a-tf-shopkart/src/main/resources/db/changelog.xml").toFile(),
+    liquibaseDriver           := "",
+    liquibaseUrl              := "jdbc:sqlite:shopkart.db",
+    liquibaseUsername         := "",
+    liquibasePassword         := ""
+  )
+  .enablePlugins(SbtLiquibase)
 
 lazy val `b-rm-shopkart` = (project in file("b-rm-shopkart")).settings(
   name                      := "reader-monad-shopkart",
   Compile / run / mainClass := Some("shopkart.ReaderMonad"),
   libraryDependencies ++= commonDependencies
 )
+
