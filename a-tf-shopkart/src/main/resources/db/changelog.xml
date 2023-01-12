@@ -14,9 +14,6 @@
 
     <changeSet  id="1"  author="dexter">  
         <createTable  tableName="user">  
-            <!-- <column  name="uid"  type="int"  autoIncrement="true">  
-                <constraints  primaryKey="true"  nullable="false"/>  
-            </column> -->
             <column name= "id" type="int">
                 <constraints  nullable="false"/>  
             </column>
@@ -25,17 +22,18 @@
             </column>
             <column  name="email"  type="varchar2(30)"/>  
         </createTable>  
-    </changeSet>  
-
-    <!-- <changeSet  id="2"  author="nvoxland">  
-        <addColumn  tableName="person">  
-            <column  name="username"  type="varchar(8)"/>  
-        </addColumn>  
-    </changeSet>  
-    <changeSet  id="3"  author="nvoxland">  
-        <addLookupTable  
-            existingTableName="person"  existingColumnName="state"  
-            newTableName="state"  newColumnName="id"  newColumnDataType="char(2)"/>  
-    </changeSet>   -->
-
+    </changeSet>   
+    <changeSet id="2" author="dexter"> 
+        <createTable tableName="orders">
+            <column name="id" type="int">
+            </column>
+            <column name="userid" type="int">
+                <constraints
+                    nullable="false"
+                    foreignKeyName="fk_user_id"
+                    references="user(id)"
+                />
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

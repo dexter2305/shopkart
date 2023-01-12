@@ -31,7 +31,7 @@ lazy val `a-tf-shopkart` = (project in file("a-tf-shopkart"))
     libraryDependencies ++= commonDependencies,
     liquibaseChangelog        := java.nio.file.Path.of("a-tf-shopkart/src/main/resources/db/changelog.xml").toFile(),
     liquibaseDriver           := "",
-    liquibaseUrl              := "jdbc:sqlite:shopkart.db",
+    liquibaseUrl              := "jdbc:sqlite:./target/shopkart.db",
     liquibaseUsername         := "",
     liquibasePassword         := ""
   )
