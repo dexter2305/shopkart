@@ -20,9 +20,16 @@ lazy val commonDependencies = Seq(
 
 lazy val root = (project in file("."))
   .settings(
-    name := "shopkart"
+    name                      := "shopkart",
+    libraryDependencies ++= commonDependencies,
+    liquibaseChangelog        := java.nio.file.Path.of("src/main/resources/db/changelog.xml").toFile(),
+    liquibaseDriver           := "",
+    liquibaseUrl              := "jdbc:sqlite:./target/shopkart.db",
+    liquibaseUsername         := "",
+    liquibasePassword         := "",
+    Compile / run / mainClass := Some("shopkart.Main")
   )
-  .aggregate(`a-tf-shopkart`, `b-rm-shopkart`)
+  .enablePlugins(SbtLiquibase)
 
 lazy val `a-tf-shopkart` = (project in file("a-tf-shopkart"))
   .settings(
@@ -36,10 +43,3 @@ lazy val `a-tf-shopkart` = (project in file("a-tf-shopkart"))
     liquibasePassword         := ""
   )
   .enablePlugins(SbtLiquibase)
-
-lazy val `b-rm-shopkart` = (project in file("b-rm-shopkart")).settings(
-  name                      := "reader-monad-shopkart",
-  Compile / run / mainClass := Some("shopkart.ReaderMonad"),
-  libraryDependencies ++= commonDependencies
-)
-

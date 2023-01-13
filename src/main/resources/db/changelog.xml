@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                      http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+  <!-- <preConditions>  
+        <runningAs  username="liquibase"/>  
+    </preConditions>   -->
+
+  <changeSet id="1" author="dexter">
+
+    <createTable tableName="users">
+      <column name="id" type="int">
+        <constraints primaryKey="true" />
+      </column>
+      <column name="name" type="varchar2(50)">
+        <constraints nullable="false" />
+      </column>
+      <column name="email" type="varchar2(30)" />
+    </createTable>
+
+    <createTable tableName="inventory_items">
+      <column name="id" type="int">
+        <constraints primaryKey="true" />
+      </column>
+      <column name="name" type="varchar2(15)"></column>
+      <column name="available" type="int"></column>
+      <column name="price" type="double"></column>
+    </createTable>
+
+    <createTable tableName="kart">
+      <column name="id" type="int">
+        <constraints primaryKey="true" />
+      </column>
+
+      <column name="user_id" type="int">
+        <constraints
+          nullable="false"
+          foreignKeyName="fk_user_id"
+          references="users(id)"
+        />
+      </column>
+      <column name="item_id" type="int">
+        <constraints
+          foreignKeyName="fk_item_id"
+          referencedTableName="inventory_items"
+          referencedColumnNames="id"
+        />
+      </column>
+      <column name="quantity" type="int">
+        <constraints notNullConstraintName="item_quantity_in_kart" />
+      </column>
+    </createTable>
+  </changeSet>
+</databaseChangeLog>
