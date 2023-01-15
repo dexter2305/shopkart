@@ -15,7 +15,8 @@ lazy val commonDependencies = Seq(
   http4s_blaze_server,
   circe_generic,
   logback_classic,
-  sqlite
+  sqlite, 
+  pureconfig
 )
 
 lazy val root = (project in file("."))
