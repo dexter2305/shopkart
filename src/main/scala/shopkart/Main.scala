@@ -6,32 +6,29 @@ import shopkart.algebra.UserRepository
 import pureconfig._
 import pureconfig.generic.auto._
 import shopkart.config.AppConfig
+import shopkart.server.Server
 
 object Main extends IOApp {
 
-  def makeProgram[F[_]: Async: UserRepository] =
+  override def run(args: List[String]): IO[ExitCode] = program[IO]
+    .use(server =>
+      IO {
+        println("Enter to terminate")
+        scala.io.StdIn.readLine()
+      }
+    )
+    .as(ExitCode.Success)
+
+  def program[F[_]: Async] =
     for {
-      appConfig <- Resource.eval(
+      config <- Resource.eval(
         Async[F].fromEither(
           ConfigSource.default
             .at("shopkart")
             .load[AppConfig]
-            .fold(failures => (new Exception(s"$failures")).asLeft[AppConfig], config => config.asRight[Exception])
+            .fold(e => (new Exception()).asLeft[AppConfig], c => c.asRight[Exception])
         )
       )
-      server    <- Program.use[F](appConfig)
+      server <- Server.make[F](config)
     } yield server
-
-  override def run(args: List[String]): IO[ExitCode] = {
-    implicit val userrepo: UserRepository[IO] = shopkart.interpreter.inmemory.InMemoryUserRepository[IO]
-
-    makeProgram[IO]
-      .use(_ =>
-        IO {
-          println("Press ENTER to terminate")
-          scala.io.StdIn.readLine()
-        }
-      )
-      .as(ExitCode.Success)
-  }
 }

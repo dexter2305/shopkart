@@ -7,4 +7,5 @@ trait UserRepository[F[_]] {
 
   def findById(id: Int): F[Option[User]]
 
+  def findByEmail(email: String): F[Option[User]]
 }

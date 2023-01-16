@@ -1,20 +1,26 @@
 package shopkart.interpreter.inmemory
 
-import shopkart.algebra.UserRepository
-import shopkart.domain.User
-import scala.collection.concurrent.TrieMap
-import cats._
-import cats.implicits._
-class InMemoryUserRepository[F[_]: Applicative] private extends UserRepository[F] {
-  var repo                                        = TrieMap.empty[Int, User]
-  override def save(user: User): F[User]          = {
-    repo.put(user.id, user)
+import shopkart.algebra._
+import shopkart.domain._
+
+import cats._, cats.implicits._, cats.effect._
+class InmemoryUserRepository[F[_]: Sync] private (initial: Seq[User]) extends UserRepository[F] {
+
+  var store: Seq[User] = Seq.from(initial)
+
+  override def findById(id: Int): F[Option[User]] = Sync[F].defer {
+    store.find(_.id === id).pure[F]
+  }
+
+  override def save(user: User): F[User]                   = Sync[F].defer {
+    store = store :+ user
     user.pure[F]
   }
-  override def findById(id: Int): F[Option[User]] = repo.find(_._1 === id).map(t => t._2).pure[F]
+  override def findByEmail(email: String): F[Option[User]] = Sync[F].defer {
+    store.find(_.email === email).pure[F]
+  }
 }
+object InmemoryUserRepository {
 
-object InMemoryUserRepository {
-
-  def apply[F[_]: Applicative] = new InMemoryUserRepository[F]
+  def apply[F[_]: Sync](users: Seq[User]) = new InmemoryUserRepository[F](users)
 }

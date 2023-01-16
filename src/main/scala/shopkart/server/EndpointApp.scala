@@ -1,15 +1,14 @@
 package shopkart.server
 
-import org.http4s.server._
-import shopkart.endpoints._
 import cats.effect._
 import org.http4s.server._
-import org.http4s._
+import shopkart.endpoints._
 import shopkart.algebra._
+import shopkart.services._
 
-object EndpointApp {
+object EndpointComposer {
 
-  def make[F[_]: Concurrent: UserRepository]: HttpApp[F] = Router {
-    "/" -> UserEndpoints.make[F]
+  def make[F[_]: Concurrent](userservice: UserService[F]) = Router[F] {
+    "/" -> UserEndpoints[F](userservice)
   }.orNotFound
 }
