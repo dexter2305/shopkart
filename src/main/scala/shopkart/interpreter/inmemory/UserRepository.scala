@@ -19,6 +19,7 @@ class InmemoryUserRepository[F[_]: Sync] private (initial: Seq[User]) extends Us
   override def findByEmail(email: String): F[Option[User]] = Sync[F].defer {
     store.find(_.email === email).pure[F]
   }
+
 }
 object InmemoryUserRepository {
 

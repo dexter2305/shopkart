@@ -11,4 +11,5 @@ package object codecs {
   implicit def userCodec: Codec[User]                                      = deriveCodec[User]
   implicit def userEntityDecoder[F[_]: Concurrent]: EntityDecoder[F, User] = jsonOf[F, User]
   implicit def userEntityEncoder[F[_]]: EntityEncoder[F, User]             = jsonEncoderOf[F, User]
+
 }

@@ -1,4 +1,5 @@
 package shopkart
+
 import cats._
 import cats.implicits._
 import cats.effect._
@@ -31,4 +32,5 @@ object Main extends IOApp {
       )
       server <- Server.make[F](config)
     } yield server
+
 }

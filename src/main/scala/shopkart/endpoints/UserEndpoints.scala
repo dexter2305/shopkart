@@ -1,4 +1,5 @@
 package shopkart.endpoints
+
 import cats._
 import cats.implicits._
 import cats.effect._
@@ -36,6 +37,7 @@ class UserEndpoints[F[_]: Concurrent] private (userservice: UserService[F]) exte
         }
       } yield response
   }
+
 }
 object UserEndpoints {
   def apply[F[_]: Concurrent](userservice: UserService[F]) = new UserEndpoints[F](userservice).endpoints
