@@ -12,10 +12,10 @@ class InmemoryUserRepository[F[_]: Sync] private (initial: Seq[User]) extends Us
     store.find(_.id === id).pure[F]
   }
 
-  override def save(user: User): F[User]                   = Sync[F].defer {
-    store = store :+ user
-    user.pure[F]
+  override def save(user: User): F[Unit] = Sync[F].defer {
+    (store = store :+ user).pure[F]
   }
+
   override def findByEmail(email: String): F[Option[User]] = Sync[F].defer {
     store.find(_.email === email).pure[F]
   }

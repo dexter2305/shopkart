@@ -16,7 +16,9 @@ lazy val commonDependencies = Seq(
   circe_generic,
   logback_classic,
   sqlite, 
-  pureconfig
+  pureconfig,
+  doobie_core,
+  doobie_hikari,
 )
 
 lazy val root = (project in file("."))

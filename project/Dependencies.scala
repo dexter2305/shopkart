@@ -3,6 +3,7 @@ import sbt._
 object Dependencies {
 
   private object version {
+
     lazy val cats_core       = "2.9.0"
     lazy val cats_effect     = "3.4.1"
     lazy val http4s          = "0.23.9"
@@ -10,6 +11,8 @@ object Dependencies {
     lazy val logback_classic = "1.2.10"
     lazy val sqlite          = "3.34.0"
     lazy val pureconfig      = "0.17.2"
+    lazy val doobie          = "1.0.0-RC1"
+
   }
 
   lazy val cats_core           = "org.typelevel"         %% "cats-core"            % version.cats_core
@@ -24,6 +27,10 @@ object Dependencies {
   lazy val logback_classic     = "ch.qos.logback"         % "logback-classic"      % version.logback_classic
   lazy val sqlite              = "org.xerial"             % "sqlite-jdbc"          % version.sqlite
   lazy val pureconfig          = "com.github.pureconfig" %% "pureconfig"           % version.pureconfig
+  lazy val doobie_core         = "org.tpolecat"          %% "doobie-core"          % version.doobie
+  lazy val doobie_hikari       = "org.tpolecat"          %% "doobie-hikari"        % version.doobie
+  lazy val doobie_pg           = "org.tpolecat"          %% "doobie-postgres"      % version.doobie
+
 }
 
 object options {
