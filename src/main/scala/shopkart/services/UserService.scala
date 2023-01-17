@@ -7,6 +7,7 @@ class UserService[F[_]] private (userrepo: UserRepository[F]) {
 
   def save(user: User)           = userrepo.save(user)
   def findByEmail(email: String) = userrepo.findByEmail(email)
+  def findById(id: Int)          = userrepo.findById(id)
 
 }
 

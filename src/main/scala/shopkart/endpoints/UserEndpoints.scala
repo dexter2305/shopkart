@@ -28,11 +28,11 @@ class UserEndpoints[F[_]: Concurrent] private (userservice: UserService[F]) exte
         response <- Ok(savedUser)
       } yield response
 
-    case GET -> Root / "users" / EmailVar(emailid) =>
+    case GET -> Root / "users" / IntVar(id) =>
       for {
-        maybeUser <- userservice.findByEmail(emailid.value)
+        maybeUser <- userservice.findById(id)
         response  <- maybeUser match {
-          case None       => NotFound(s"Email id $emailid not found")
+          case None       => NotFound(s"Id $id not found")
           case Some(user) => Ok(user)
         }
       } yield response
