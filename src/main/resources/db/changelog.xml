@@ -20,7 +20,9 @@
       <column name="name" type="varchar2(50)">
         <constraints nullable="false" />
       </column>
-      <column name="email" type="varchar2(30)" />
+      <column name="email" type="varchar2(30)" >
+        <constraints nullable="false"/>
+        </column>
     </createTable>
 
     <createTable tableName="inventory_items">

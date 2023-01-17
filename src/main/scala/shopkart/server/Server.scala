@@ -14,17 +14,13 @@ object Server {
   def make[F[_]: Monad: Async](config: AppConfig) =
     for {
       ec <- ExecutionContexts.cachedThreadPool[F]
-      xa <- HikariTransactor.newHikariTransactor(
-        config.db.driver,
-        config.db.url,
-        config.db.user,
-        config.db.password,
-        ec
-      )
+      xa <- HikariTransactor
+        .newHikariTransactor(config.db.driver, config.db.url, config.db.user, config.db.password, ec)
       userrepo = DoobieUserRepository[F](xa)
-      server <- BlazeServerBuilder[F]
-        .bindHttp(config.http.port, config.http.host)
-        .withHttpApp(EndpointComposer.make[F](UserService.make[F](userrepo)))
-        .resource
+      server <-
+        BlazeServerBuilder[F]
+          .bindHttp(config.http.port, config.http.host)
+          .withHttpApp(EndpointComposer.make[F](UserService.make[F](userrepo)))
+          .resource
     } yield server
 }

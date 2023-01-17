@@ -10,7 +10,9 @@ class DoobieUserRepository[F[_]: MonadCancelThrow] private (xa: Transactor[F]) e
   implicit val logger                    = LogHandler.jdkLogHandler
   override def save(user: User): F[Unit] =
     for {
-      id <- sql"insert into users (id, name, email) values (${user.id}, ${user.name}, ${user.email}".update.run
+      id <- sql"insert into users (id, name, email) values (${user.id}, ${user.name}, ${user.email})"
+        .update
+        .run
         .transact(xa)
     } yield ()
 

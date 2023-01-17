@@ -24,7 +24,8 @@ object Main extends IOApp {
     for {
       config <- Resource.eval(
         Async[F].fromEither(
-          ConfigSource.default
+          ConfigSource
+            .default
             .at("shopkart")
             .load[AppConfig]
             .fold(e => (new Exception()).asLeft[AppConfig], c => c.asRight[Exception])
