@@ -15,10 +15,10 @@ lazy val commonDependencies = Seq(
   http4s_blaze_server,
   circe_generic,
   logback_classic,
-  sqlite, 
   pureconfig,
   doobie_core,
   doobie_hikari,
+  sqlite
 )
 
 lazy val root = (project in file("."))

@@ -34,9 +34,7 @@ object Dependencies {
 }
 
 object options {
-  val scalacOptions = Seq(
-    "-deprecation"
-  )
+  val scalacOptions = Seq("-deprecation")
 }
 
 object liquibase {}
