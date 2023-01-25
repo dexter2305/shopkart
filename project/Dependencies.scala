@@ -12,29 +12,32 @@ object Dependencies {
     lazy val sqlite          = "3.34.0"
     lazy val pureconfig      = "0.17.2"
     lazy val doobie          = "1.0.0-RC1"
+    lazy val tapir           = "1.2.6"
 
   }
 
-  lazy val cats_core           = "org.typelevel"         %% "cats-core"            % version.cats_core
-  lazy val cats_effect         = "org.typelevel"         %% "cats-effect"          % version.cats_effect
-  lazy val http4s_dsl          = "org.http4s"            %% s"http4s-dsl"          % version.http4s
-  lazy val http4s_ember_server = "org.http4s"            %% s"http4s-ember-server" % version.http4s
-  lazy val http4s_blaze_server = "org.http4s"            %% s"http4s-blaze-server" % version.http4s
-  lazy val http4s_circe        = "org.http4s"            %% "http4s-circe"         % version.http4s
-  lazy val circe_core          = "io.circe"              %% "circe-core"           % version.circe
-  lazy val circe_generic       = "io.circe"              %% "circe-generic"        % version.circe
-  lazy val circe_literal       = "io.circe"              %% "circe-literal"        % version.circe
-  lazy val logback_classic     = "ch.qos.logback"         % "logback-classic"      % version.logback_classic
-  lazy val sqlite              = "org.xerial"             % "sqlite-jdbc"          % version.sqlite
-  lazy val pureconfig          = "com.github.pureconfig" %% "pureconfig"           % version.pureconfig
-  lazy val doobie_core         = "org.tpolecat"          %% "doobie-core"          % version.doobie
-  lazy val doobie_hikari       = "org.tpolecat"          %% "doobie-hikari"        % version.doobie
-  lazy val doobie_pg           = "org.tpolecat"          %% "doobie-postgres"      % version.doobie
+  lazy val cats_core            = "org.typelevel"               %% "cats-core"               % version.cats_core
+  lazy val cats_effect          = "org.typelevel"               %% "cats-effect"             % version.cats_effect
+  lazy val http4s_dsl           = "org.http4s"                  %% s"http4s-dsl"             % version.http4s
+  lazy val http4s_ember_server  = "org.http4s"                  %% s"http4s-ember-server"    % version.http4s
+  lazy val http4s_blaze_server  = "org.http4s"                  %% s"http4s-blaze-server"    % version.http4s
+  lazy val http4s_circe         = "org.http4s"                  %% "http4s-circe"            % version.http4s
+  lazy val circe_core           = "io.circe"                    %% "circe-core"              % version.circe
+  lazy val circe_generic        = "io.circe"                    %% "circe-generic"           % version.circe
+  lazy val circe_literal        = "io.circe"                    %% "circe-literal"           % version.circe
+  lazy val logback_classic      = "ch.qos.logback"               % "logback-classic"         % version.logback_classic
+  lazy val sqlite               = "org.xerial"                   % "sqlite-jdbc"             % version.sqlite
+  lazy val pureconfig           = "com.github.pureconfig"       %% "pureconfig"              % version.pureconfig
+  lazy val doobie_core          = "org.tpolecat"                %% "doobie-core"             % version.doobie
+  lazy val doobie_hikari        = "org.tpolecat"                %% "doobie-hikari"           % version.doobie
+  lazy val doobie_pg            = "org.tpolecat"                %% "doobie-postgres"         % version.doobie
+  lazy val tapir_core           = "com.softwaremill.sttp.tapir" %% "tapir-core"              % version.tapir
+  lazy val tapir_json_circe     = "com.softwaremill.sttp.tapir" %% "tapir-json-circe"        % version.tapir
+  lazy val tapir_swagger_bundle = "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % version.tapir
+  lazy val tapir_http4s_server  = "com.softwaremill.sttp.tapir" %% "tapir-http4s-server"     % version.tapir
 
 }
 
 object options {
   val scalacOptions = Seq("-deprecation")
 }
-
-object liquibase {}

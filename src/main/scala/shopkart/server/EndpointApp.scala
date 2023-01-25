@@ -8,8 +8,8 @@ import shopkart.services._
 
 object EndpointComposer {
 
-  def make[F[_]: Concurrent](userservice: UserService[F]) =
-    Router[F] {
-      "/" -> UserEndpoints[F](userservice)
-    }.orNotFound
+  def make[F[_]: Concurrent](userservice: UserService[F]) = ???
+    // Router[F] {
+    //   // "/" -> UserEndpoints[F](userservice)
+    // }.orNotFound
 }

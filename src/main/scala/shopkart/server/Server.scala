@@ -9,6 +9,8 @@ import shopkart.config._
 import shopkart.domain._
 import shopkart.services._
 import shopkart.interpreter.doobie._
+import shopkart.routes.UserRoutes
+import shopkart.routes.SwaggerRoute
 object Server {
 
   def make[F[_]: Monad: Async](config: AppConfig) =
@@ -20,7 +22,8 @@ object Server {
       server <-
         BlazeServerBuilder[F]
           .bindHttp(config.http.port, config.http.host)
-          .withHttpApp(EndpointComposer.make[F](UserService.make[F](userrepo)))
+          // .withHttpApp(EndpointComposer.make[F](UserService.make[F](userrepo)))
+          .withHttpApp((UserRoutes[F] <+> SwaggerRoute[F]).orNotFound)
           .resource
     } yield server
 }

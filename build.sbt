@@ -18,7 +18,11 @@ lazy val commonDependencies = Seq(
   pureconfig,
   doobie_core,
   doobie_hikari,
-  sqlite
+  sqlite, 
+  tapir_core withJavadoc(), 
+  tapir_json_circe withJavadoc(), 
+  tapir_http4s_server withJavadoc(),
+  tapir_swagger_bundle withJavadoc(),
 )
 
 lazy val root = (project in file("."))
