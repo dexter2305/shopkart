@@ -2,12 +2,13 @@ package shopkart.services
 
 import shopkart.algebra._
 import shopkart.domain._
+import shopkart.algebra
 
-class UserService[F[_]] private (userrepo: UserRepository[F]) {
+class UserService[F[_]] private (userrepo: UserRepository[F]) extends algebra.UserService[F] {
 
-  def save(user: User)           = userrepo.save(user)
-  def findByEmail(email: String) = userrepo.findByEmail(email)
-  def findById(id: Int)          = userrepo.findById(id)
+  override def create(user: User)         = userrepo.insert(user)
+  override def findByEmail(email: String) = userrepo.findByEmail(email)
+  override def findById(id: Int)          = userrepo.findById(id)
 
 }
 

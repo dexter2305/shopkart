@@ -19,11 +19,12 @@ object Server {
       xa <- HikariTransactor
         .newHikariTransactor(config.db.driver, config.db.url, config.db.user, config.db.password, ec)
       userrepo = DoobieUserRepository[F](xa)
+      userservice = UserService.make(userrepo)
       server <-
         BlazeServerBuilder[F]
           .bindHttp(config.http.port, config.http.host)
           // .withHttpApp(EndpointComposer.make[F](UserService.make[F](userrepo)))
-          .withHttpApp((UserRoutes[F] <+> SwaggerRoute[F]).orNotFound)
+          .withHttpApp((UserRoutes[F](userservice) <+> SwaggerRoute[F]).orNotFound)
           .resource
     } yield server
 }

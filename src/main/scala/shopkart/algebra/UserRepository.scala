@@ -4,7 +4,9 @@ import shopkart.domain._
 
 trait UserRepository[F[_]] {
 
-  def save(user: User): F[Unit]
+  def insert(user: User): F[Int]
+
+  def update(user: User): F[Unit]
 
   def findById(id: Int): F[Option[User]]
 

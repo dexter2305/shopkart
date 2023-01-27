@@ -8,25 +8,24 @@ import shopkart.domain._
 
 object UserEndpoints {
 
-  private lazy val userEndpoint = infallibleEndpoint.in("users")
+  private lazy val userEndpoint = infallibleEndpoint
+  .in("users")
+  .errorOut(statusCode)
 
   lazy val userPost =
     userEndpoint.post
       .in(jsonBody[User])
-      .errorOut(stringBody)
-      .out(jsonBody[User])
+      .out(jsonBody[Int])
 
   lazy val userFindById =
     userEndpoint.get
       .in(path[Int]("id"))
-      .errorOut(stringBody)
-      .out(jsonBody[Option[User]])
+      .out(jsonBody[User])
 
   lazy val userFindByEmail =
     userEndpoint.get
-      .in(query[String]("name"))
-      .errorOut(stringBody)
-      .out(jsonBody[Option[User]])
+      .in(query[String]("email"))
+      .out(jsonBody[User])
 
   lazy val combined = userPost :: userFindById :: userFindByEmail :: Nil
 
