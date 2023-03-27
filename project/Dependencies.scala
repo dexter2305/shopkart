@@ -13,6 +13,7 @@ object Dependencies {
     lazy val pureconfig      = "0.17.2"
     lazy val doobie          = "1.0.0-RC1"
     lazy val tapir           = "1.2.6"
+    lazy val quill           = "3.12.0"
 
   }
 
@@ -35,6 +36,7 @@ object Dependencies {
   lazy val tapir_json_circe     = "com.softwaremill.sttp.tapir" %% "tapir-json-circe"        % version.tapir
   lazy val tapir_swagger_bundle = "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % version.tapir
   lazy val tapir_http4s_server  = "com.softwaremill.sttp.tapir" %% "tapir-http4s-server"     % version.tapir
+  lazy val quill_jdbc           = "io.getquill"                 %% "quill-jdbc"              % version.quill
 
 }
 
